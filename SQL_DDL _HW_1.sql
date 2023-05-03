@@ -1,9 +1,18 @@
+SQL_DDL
+Первая часть.
+
+Таблица employees
+
+1)	Создать таблицу employees
+- id. serial,  primary key,
+- employee_name. Varchar(50), not null
+
 create table employees
 (id serial primary key,
 employee_name Varchar(50) not null
 );
 
-select * from employees;
+2)	Наполнить таблицу employee 70 строками.
 
 insert into employees (employee_name) 
 VALUES ('Sveta'),
@@ -72,24 +81,15 @@ VALUES ('Sveta'),
 ('Sveta'),
 ('Sveta');
 
-select * from employees;
-
-SELECT COUNT(1) FROM employees;
-insert into employees (employee_name) 
-VALUES ('Sveta'),
-('Sveta'),
-('Sveta'),
-('Sveta');
-
-SELECT COUNT(1) FROM employees;
-select * from employees;
-
+3. Создать таблицу salary
+id. Serial  primary key,
+monthly_salary. Int, not null
 
 create table salary 
 (id serial  primary key,
 monthly_salary Int not null);
 
-select * from salary;
+4. Наполнить таблицу salary 15 строками
 
 insert into salary (monthly_salary)
 values ('1000'),
@@ -109,36 +109,75 @@ values ('1000'),
 ('2400'),
 ('2500');
 
-select * from salary;
+5)	Создать таблицу employee_salary
+id. Serial  primary key,
+employee_id. Int, not null, unique
+salary_id. Int, not null
 
 create table employee_salary
 (id Serial  primary key,
 employee_id Int not null unique,
 salary_id Int not null);
 
-insert into employee_salary (employee_id, salary_id)   
-VALUES (3, 7),
-(1, 4),
-(5, 9),
-(40, 13),
-(23, 4),
-(11, 2),
-(52, 10), 
-(15, 13),
-(26, 4),
-(16, 1),
-(33, 7);
+6)	Наполнить таблицу employee_salary 40 строками:
+- в 10 строк из 40 вставить несуществующие employee_id
 
-select * from employee_salary;
+insert into employee_salary(employee_id, salary_id)
+values (1, 15),
+	(2, 14),
+	(3, 13),
+	(4, 12),
+	(5, 11),
+	(6, 10),
+	(7, 9),
+	(8, 8),
+	(9, 7),
+	(10, 6),
+	(11, 5),
+	(12, 4),
+	(13, 3),
+	(14, 2),
+	(15, 1),
+	(71, 15),
+	(82, 14),
+	(93, 13),
+	(72, 12),
+	(83, 11),
+	(16, 10),
+	(17, 9),
+	(18, 8),
+	(19, 7),
+	(20, 6),
+	(21, 5),
+	(22, 4),
+	(23, 3),
+	(24, 2),
+	(25, 1),
+	(65, 15),
+	(66, 14),
+	(67, 13),
+	(68, 12),
+	(55, 11),
+	(77, 10),
+	(85, 9),
+	(79, 8),
+	(88, 7),
+	(99, 6);
 
-
+7)	Создать таблицу roles
+ id. Serial  primary key,
+ role_name. int, not null, unique
 
 create table roles 
 (id Serial  primary key,
 role_name int not null unique);
 
+8)	Поменять тип столба role_name с int на varchar(30)
+
 ALTER table roles
 ALTER COLUMN role_name type varchar(30);
+
+9)	Наполнить таблицу roles 20 строками:
 
 insert into roles (role_name) VALUES ('Junior Python developer'),
 ('Middle Python developer'),
@@ -161,9 +200,10 @@ insert into roles (role_name) VALUES ('Junior Python developer'),
 ('Middle Automation QA engineer'),
 ('Senior Automation QA engineer');
 
-select * from roles;
-
-
+10)	Создать таблицу roles_employee
+id. Serial  primary key,
+employee_id. Int, not null, unique (внешний ключ для таблицы employees, поле id)
+role_id. Int, not null (внешний ключ для таблицы roles, поле id)
 
 create table roles_employee 
 (id Serial primary key,
@@ -174,6 +214,8 @@ references employees(id),
 foreign key (role_id)
 references roles(id)
 );
+
+11)	Наполнить таблицу roles_employee 40 строками:
 
 insert into roles_employee 
 (employee_id, role_id) 
@@ -218,10 +260,5 @@ values (7, 2),
 (38, 9),
 (39, 4);
 
-DELETE FROM roles_employee WHERE ID <= 11;
-
-select * from roles_employee 
-
-drop table  roles_employee 
 
 
